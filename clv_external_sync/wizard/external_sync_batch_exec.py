@@ -31,13 +31,13 @@ class ExternalSyncBatchExec(models.TransientModel):
         store=False
     )
 
-    @api.multi
+    # @api.multi
     @api.depends('batch_ids')
     def _compute_count_batches(self):
         for r in self:
             r.count_batches = len(r.batch_ids)
 
-    @api.multi
+    # @api.multi
     def _reopen_form(self):
         self.ensure_one()
         action = {
@@ -50,7 +50,7 @@ class ExternalSyncBatchExec(models.TransientModel):
         }
         return action
 
-    @api.multi
+    # @api.multi
     def do_external_sync_batch_exec(self):
         self.ensure_one()
 

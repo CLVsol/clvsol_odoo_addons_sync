@@ -224,7 +224,7 @@ class ExternalSyncTemplate(models.Model):
         store=True
     )
 
-    @api.multi
+    # @api.multi
     @api.depends('schedule_ids')
     def _compute_count_schedules(self):
         for r in self:
