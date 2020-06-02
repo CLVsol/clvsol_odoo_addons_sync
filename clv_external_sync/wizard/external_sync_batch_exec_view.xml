@@ -44,10 +44,9 @@
     <act_window 
         id="clv_external_sync_batch_exec_action"
         name="External Sync Batch Exec"
-        src_model="clv.external_sync.batch"
+        binding_model="clv.external_sync.batch"
         res_model="clv.external_sync.batch.exec"
         view_mode="form"
-        key2="client_action_multi"
         target="new"
     />
 

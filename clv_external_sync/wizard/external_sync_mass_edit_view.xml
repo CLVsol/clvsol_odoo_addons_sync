@@ -39,10 +39,9 @@
     <act_window 
         id="clv_external_sync_mass_edit_action"
         name="External Sync Mass Edit"
-        src_model="clv.external_sync"
+        binding_model="clv.external_sync"
         res_model="clv.external_sync.mass_edit"
         view_mode="form"
-        key2="client_action_multi"
         target="new"
     />
 
