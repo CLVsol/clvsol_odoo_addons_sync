@@ -279,8 +279,10 @@ class AbstractExternalSync(models.AbstractModel):
                             if relation_object.id is not False:
                                 m2m_list.append((4, relation_object.id))
                             else:
-                                _logger.warning(u'>>>>>>>>>>>>>>>>>>>> %s %s (%s)',
-                                                fields[0].name, fields[0].ttype, id_)
+                                # _logger.warning(u'>>>>>>>>>>>>>>>>>>>> %s %s (%s)',
+                                #                 fields[0].name, fields[0].ttype, id_)
+                                _logger.warning(u'>>>>>>>>>>>>>>>>>>>> %s %s',
+                                                fields[0].name, fields[0].ttype)
                                 external_sync = 'updated'
 
                         _logger.info(u'%s %s', '>>>>>>>>>>', m2m_list)
