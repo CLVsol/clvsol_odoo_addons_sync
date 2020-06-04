@@ -404,8 +404,7 @@ class AbstractExternalSync(models.AbstractModel):
 
                             sync_object.external_sync = 'updated'
 
-                        if (sync_object.external_sync == 'included' or
-                            sync_object.external_sync == 'updated') and \
+                        if (sync_object.external_sync == 'included' or sync_object.external_sync == 'updated') and \
                            schedule.external_disable_sync is False:
 
                             sync_count += 1
