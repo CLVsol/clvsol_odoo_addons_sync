@@ -26,4 +26,7 @@ class ExternalSync(models.Model):
                 rec = Model.search([
                     ('id', '=', record.res_id),
                 ])
-                record.reference_name = rec.name_get()[0][1]
+                try:
+                    record.reference_name = rec.name_get()[0][1]
+                except IndexError:
+                    record.reference_name = str(record.model) + ' ' + str(record.res_id)
