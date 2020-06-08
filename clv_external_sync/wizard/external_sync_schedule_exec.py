@@ -59,17 +59,19 @@ class ExternalSyncScheduleExec(models.TransientModel):
             external_model = schedule.external_model
             _logger.info(u'%s %s [%s - %s]', '>>>>>', schedule.name, model, external_model)
 
-            method_call = False
-            if schedule.method == '_object_external_sync':
-                method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
-            elif schedule.method == '_object_external_recognize':
-                method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
+            # method_call = False
+            # if schedule.method == '_object_external_sync':
+            #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
+            # elif schedule.method == '_object_external_recognize':
+            #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
 
             # if schedule.external_disable_check_missing is not False:
             #     method = '_object_external_identify'
             #     method_call = 'self.env["clv.external_sync"].' + method + '(schedule)'
             # method = '_object_external_identify'
             # method_call = 'self.env["clv.external_sync"].' + method + '(schedule)'
+
+            method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
 
             _logger.info(u'%s %s', '>>>>>>>>>>', method_call)
 

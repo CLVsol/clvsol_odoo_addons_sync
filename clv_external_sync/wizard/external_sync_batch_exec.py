@@ -79,11 +79,13 @@ class ExternalSyncBatchExec(models.TransientModel):
                     model = schedule.model
                     _logger.info(u'%s %s [%s]', '>>>>>', schedule.name, model)
 
-                    method_call = False
-                    if schedule.method == '_object_external_sync':
-                        method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
-                    elif schedule.method == '_object_external_recognize':
-                        method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
+                    # method_call = False
+                    # if schedule.method == '_object_external_sync':
+                    #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
+                    # elif schedule.method == '_object_external_recognize':
+                    #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
+
+                    method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
 
                     _logger.info(u'%s %s %s', '>>>>>>>>>>', schedule.method, method_call)
 

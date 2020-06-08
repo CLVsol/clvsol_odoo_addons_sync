@@ -41,6 +41,7 @@
                         <group name="group_right">
                             <field name="model"/>
                             <field name="method"/>
+                            <field name="method_args"/>
                             <field name="sequence_code"/>
                             <field name="external_model"/>
                             <field name="external_sequence_code"/>
@@ -110,6 +111,7 @@
                 <field name="date_inclusion"/>
                 <field name="model"/>
                 <field name="method"/>
+                <field name="method_args"/>
                 <field name="sequence_code"/>
                 <field name="external_model"/>
                 <field name="external_sequence_code"/>
@@ -139,6 +141,7 @@
                 <field name="date_inclusion"/>
                 <field name="model"/>
                 <field name="method"/>
+                <field name="method_args"/>
                 <field name="sequence_code"/>
                 <field name="external_model"/>
                 <field name="external_sequence_code"/>
@@ -150,6 +153,8 @@
                     <filter name="filter_template_id" string="External Sync Template" context="{'group_by': 'template_id'}"/>
                     <filter name="filter_model" string="Model" context="{'group_by': 'model'}"/>
                     <filter name="filter_external_model" string="External Model" context="{'group_by': 'external_model'}"/>
+                    <filter name="filter_method" string="Method" context="{'group_by': 'method'}"/>
+                    <filter name="filter_method_args" string="Method Arguments" context="{'group_by': 'method_args'}"/>
                 </group>
             </search>
         </field>

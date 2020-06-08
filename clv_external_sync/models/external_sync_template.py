@@ -71,6 +71,12 @@ class ExternalSyncTemplate(models.Model):
         help="Name of the method to be called when the synchronization job is processed."
     )
 
+    method_args = fields.Char(
+        string='Method Arguments',
+        required=False,
+        help="List  of arguments(Python dictionary format) for the method."
+    )
+
     sequence_code = fields.Char(
         string='Sequence Code',
         required=False,

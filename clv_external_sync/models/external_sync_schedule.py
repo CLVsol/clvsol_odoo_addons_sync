@@ -78,6 +78,12 @@ class ExternalSyncSchedule(models.Model):
         help="Name of the method to be called when the synchronization job is processed."
     )
 
+    method_args = fields.Char(
+        string='Method Arguments',
+        required=False,
+        help="List  of arguments(Python dictionary format) for the method."
+    )
+
     sequence_code = fields.Char(
         string='Sequence Code',
         required=False,
@@ -134,6 +140,7 @@ class ExternalSyncSchedule(models.Model):
             schedule.enable_sequence_code_sync = schedule.template_id.enable_sequence_code_sync
             schedule.model = schedule.template_id.model
             schedule.method = schedule.template_id.method
+            schedule.method_args = schedule.template_id.method_args
             schedule.sequence_code = schedule.template_id.sequence_code
             schedule.external_model = schedule.template_id.external_model
             schedule.external_sequence_code = schedule.template_id.external_sequence_code
@@ -167,6 +174,7 @@ class ExternalSyncSchedule(models.Model):
             self.enable_sequence_code_sync = self.template_id.enable_sequence_code_sync
             self.model = self.template_id.model
             self.method = self.template_id.method
+            self.method_args = self.template_id.method_args
             self.sequence_code = self.template_id.sequence_code
             self.external_model = self.template_id.external_model
             self.external_sequence_code = self.template_id.external_sequence_code
