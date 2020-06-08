@@ -22,8 +22,13 @@ class AbstractExternalSync(models.AbstractModel):
     _description = 'Abstract External Sync'
     _name = 'clv.abstract.external_sync'
 
+    external_host_id = fields.Many2one(
+        comodel_name='clv.external_sync.host',
+        string='External Host',
+        required=True
+    )
     external_model = fields.Char(string='External Model Name', required=True)
-    external_id = fields.Integer(string='External ID')
+    external_id = fields.Integer(string='External ID', required=True)
     external_last_update = fields.Datetime(string="External Last Update")
     external_sync = fields.Selection(
         [('identified', 'Identified'),
@@ -294,6 +299,7 @@ class AbstractExternalSync(models.AbstractModel):
 
             else:
                 _logger.error(u'>>>>>>>>>>>>>>>>>>>> %s %s', local_object_fields[i], fields)
+                external_sync = 'updated'
 
             i += 1
 
@@ -849,6 +855,7 @@ class AbstractExternalSync(models.AbstractModel):
 
                         sync_values = {}
                         sync_values['model'] = model_name
+                        sync_values['external_host_id'] = schedule.external_host_id.id
                         sync_values['external_model'] = external_model_name
                         sync_values['external_id'] = external_object['id']
                         sync_values['external_last_update'] = external_object['__last_update']
