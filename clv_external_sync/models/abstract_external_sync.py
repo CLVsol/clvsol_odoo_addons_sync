@@ -7,6 +7,7 @@ import ssl
 import xmlrpc
 from datetime import datetime
 from functools import reduce
+from ast import literal_eval
 
 from odoo import api, models, fields
 
@@ -161,6 +162,11 @@ class AbstractExternalSync(models.AbstractModel):
         external_model, external_id, schedule, model_name
     ):
 
+        method_args = {}
+        if schedule.method_args is not False:
+            method_args = literal_eval(schedule.method_args)
+        _logger.info(u'%s %s', '>>>>>>>>>> method_args: ', method_args)
+
         Model = self.env['ir.model']
         ModelFields = self.env['ir.model.fields']
         ExternalSync = self.env['clv.external_sync']
@@ -176,10 +182,17 @@ class AbstractExternalSync(models.AbstractModel):
 
         external_object_fields = []
         local_object_fields = []
+        external_object_fields_adapt = []
+        local_object_fields_adapt = []
         for object_field in schedule.object_field_ids:
             if object_field.synchronization is True:
                 external_object_fields.append(object_field.external_object_field)
                 local_object_fields.append(object_field.local_object_field)
+            if object_field.adaptation is True:
+                if object_field.external_object_field is not False:
+                    external_object_fields_adapt.append(object_field.external_object_field)
+                if object_field.local_object_field is not False:
+                    local_object_fields_adapt.append(object_field.local_object_field)
         external_object_fields.append('__last_update')
 
         external_args = [
@@ -196,7 +209,7 @@ class AbstractExternalSync(models.AbstractModel):
         external_objects = sock.execute(external_dbname, uid, external_user_pw,
                                         external_model, 'search_read',
                                         external_args,
-                                        external_object_fields)
+                                        external_object_fields + external_object_fields_adapt)
 
         external_object = external_objects[0]
 
@@ -302,6 +315,16 @@ class AbstractExternalSync(models.AbstractModel):
                 external_sync = 'updated'
 
             i += 1
+
+        local_constants = {}
+        if 'local_constants' in method_args.keys():
+            local_constants = method_args['local_constants']
+
+        for field in local_object_fields_adapt:
+
+            if local_constants != {}:
+                if field in local_constants.keys():
+                    local_values[field] = local_constants[field]
 
         if local_object.id is False:
             local_object = LocalObject.create(local_values)

@@ -31,6 +31,7 @@
         'views/external_sync_batch_member_view.xml',
         'views/referenceable_model_view.xml',
         'data/external_sync_batch_member.xml',
+        'data/external_sync_batch_member_seq.xml',
         'wizard/external_sync_mass_edit_view.xml',
         'wizard/external_sync_template_mass_edit_view.xml',
         'wizard/external_sync_schedule_mass_edit_view.xml',

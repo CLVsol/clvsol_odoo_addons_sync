@@ -20,7 +20,7 @@ class ExternalSyncBatchMember(models.Model):
 
     sequence = fields.Integer(
         string='Sequence',
-        default=10
+        default=lambda self: self.env['ir.sequence'].next_by_code('clv.external_sync.batch_member_seq')
     )
 
     enabled = fields.Boolean(string='Enabled', default=True)

@@ -152,6 +152,7 @@ class ExternalSyncSchedule(models.Model):
                 'local_object_field': object_field.local_object_field,
                 'identification': object_field.identification,
                 'synchronization': object_field.synchronization,
+                'adaptation': object_field.adaptation,
                 'sequence': object_field.sequence,
                 'schedule_id': schedule.id,
             }
@@ -195,6 +196,7 @@ class ExternalSyncSchedule(models.Model):
                         'local_object_field': object_field.local_object_field,
                         'identification': object_field.identification,
                         'synchronization': object_field.synchronization,
+                        'adaptation': object_field.adaptation,
                         'sequence': object_field.sequence,
                         'schedule_id': schedule_id,
                     }

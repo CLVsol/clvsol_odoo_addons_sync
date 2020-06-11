@@ -15,6 +15,7 @@ class ExternalSyncObjectField(models.Model):
 
     identification = fields.Boolean(string='Use during Identification', default=False)
     synchronization = fields.Boolean(string='Use during Synchronization', default=False)
+    adaptation = fields.Boolean(string='Use during Adaptation', default=False)
 
     template_id = fields.Many2one(comodel_name='clv.external_sync.template', string='External Sync Template')
     schedule_id = fields.Many2one(comodel_name='clv.external_sync.schedule', string='External Sync Schedule')
