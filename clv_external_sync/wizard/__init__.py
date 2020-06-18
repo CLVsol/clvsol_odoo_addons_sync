@@ -8,3 +8,4 @@ from . import external_sync_schedule_mass_edit
 from . import external_sync_schedule_exec
 from . import external_sync_batch_exec
 from . import external_sync_batch_member_mass_edit
+from . import external_sync_schedule_mass_edit_2
