@@ -528,7 +528,9 @@ class AbstractExternalSync(models.AbstractModel):
         if (not external_disable_identification) or (not external_disable_check_missing):
             self._object_external_identify(schedule)
 
-        if not schedule.external_disable_inclusion:
+        # if not schedule.external_disable_inclusion:
+        if (not schedule.external_disable_inclusion) or \
+           (not schedule.external_disable_sync):
 
             from time import time
             start = time()
