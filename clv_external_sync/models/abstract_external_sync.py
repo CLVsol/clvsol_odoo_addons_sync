@@ -347,18 +347,26 @@ class AbstractExternalSync(models.AbstractModel):
         if (not external_disable_identification) or (not external_disable_check_missing):
             self._object_external_identify(schedule)
 
-        from time import time
-        start = time()
-
         if (not schedule.external_disable_inclusion) or \
            (not schedule.external_disable_sync):
+
+            from time import time
+            start = time()
 
             AbstractExternalSync = self.env['clv.abstract.external_sync']
             ExternalSync = self.env['clv.external_sync']
 
             model_name = schedule.model
+            external_model_name = schedule.external_model
 
             external_max_task = schedule.external_max_task
+
+            # Model = self.env['ir.model']
+            # ModelFields = self.env['ir.model.fields']
+
+            # local_object_model = Model.search([
+            #     ('model', '=', model_name),
+            # ])
 
             date_last_sync = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             upmost_last_update = False
@@ -419,7 +427,7 @@ class AbstractExternalSync(models.AbstractModel):
 
                         sync_object._object_synchronize(
                             sock, external_dbname, uid, external_user_pw,
-                            schedule.external_model, sync_object.external_id,
+                            external_model_name, sync_object.external_id,
                             schedule, model_name
                         )
 
@@ -451,7 +459,7 @@ class AbstractExternalSync(models.AbstractModel):
 
                             sync_object._object_synchronize(
                                 sock, external_dbname, uid, external_user_pw,
-                                schedule.external_model, sync_object.external_id,
+                                external_model_name, sync_object.external_id,
                                 schedule, model_name
                             )
 
@@ -528,7 +536,6 @@ class AbstractExternalSync(models.AbstractModel):
         if (not external_disable_identification) or (not external_disable_check_missing):
             self._object_external_identify(schedule)
 
-        # if not schedule.external_disable_inclusion:
         if (not schedule.external_disable_inclusion) or \
            (not schedule.external_disable_sync):
 
@@ -593,10 +600,10 @@ class AbstractExternalSync(models.AbstractModel):
                 reg_count = 0
                 include_count = 0
                 task_count = 0
+
                 for sync_object in sync_objects:
 
                     reg_count += 1
-
                     _logger.info(u'%s %s %s %s', '>>>>>>>>>>', reg_count,
                                  sync_object.external_id,
                                  sync_object.external_last_update, )
@@ -799,11 +806,12 @@ class AbstractExternalSync(models.AbstractModel):
             sync_objects = []
             missing_count = 0
             reg_count_2 = 0
+
             if not external_disable_check_missing:
 
                 external_object_ids = sock.execute(
                     external_dbname, uid, external_user_pw,
-                    schedule.external_model, 'search', external_search_args)
+                    external_model_name, 'search', external_search_args)
                 _logger.info(u'%s %s', '>>>>>>>>>> (external_objects):', len(external_object_ids))
 
                 sync_objects = ExternalSync.with_context({'active_test': False}).search([
@@ -841,7 +849,7 @@ class AbstractExternalSync(models.AbstractModel):
                 external_object_fields.append('__last_update')
 
                 external_objects = sock.execute(external_dbname, uid, external_user_pw,
-                                                schedule.external_model, 'search_read',
+                                                external_model_name, 'search_read',
                                                 external_args,
                                                 external_object_fields)
 
@@ -871,7 +879,7 @@ class AbstractExternalSync(models.AbstractModel):
 
                     external_object_fields = sock.execute(
                         external_dbname, uid, external_user_pw,
-                        schedule.external_model, 'fields_get',
+                        external_model_name, 'fields_get',
                         [], {'attributes': ['string', 'help', 'type']})
                     _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):', external_object_fields.keys())
 
@@ -883,7 +891,7 @@ class AbstractExternalSync(models.AbstractModel):
                     _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):',
                                  external_object_fields)
                     external_objects = sock.execute(external_dbname, uid, external_user_pw,
-                                                    schedule.external_model, 'search_read',
+                                                    external_model_name, 'search_read',
                                                     external_args,
                                                     external_object_fields)
 
