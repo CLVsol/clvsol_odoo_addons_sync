@@ -14,6 +14,7 @@
                 <field name="ref_id"  options="{'no_open': False, 'no_create': True}"/>
                 <field name="ref_model"/>
                 <field name="ref_name"/>
+                <field name="ref_method"/>
             </field>
         </field>
     </record>
@@ -26,6 +27,7 @@
         <field name="arch" type="xml">
             <field name="external_sync_batch_id" position="after">
                 <field name="ref_id"/>
+                <field name="ref_method"/>
             </field>
         </field>
     </record>
@@ -40,10 +42,12 @@
                 <field name="ref_id"/>
                 <field name="ref_model"/>
                 <field name="ref_name"/>
+                <field name="ref_method"/>
             </field>
             <group name="group_by" position="inside">
                 <filter name="filter_ref_model" string="Refers to (Model)" context="{'group_by': 'ref_model'}"/>
                 <filter name="filter_ref_name" string="Member Name" context="{'group_by': 'ref_name'}"/>
+                <filter name="filter_ref_method" string="Member Method" context="{'group_by': 'ref_method'}"/>
             </group>
         </field>
     </record>
