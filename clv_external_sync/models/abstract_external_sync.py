@@ -817,32 +817,29 @@ class AbstractExternalSync(models.AbstractModel):
                     _logger.info(u'%s %s %s', '>>>>>>>>>>', reg_count_2, sync_object, )
                     if sync_object.external_id not in external_object_ids:
                         missing_count += 1
-                        _logger.info(u'%s %s %s', '>>>>>>>>>>>>>>> (missing_object):', missing_count, sync_object.id)
+                        _logger.info(u'%s %s %s', '>>>>>>>>>>>>>>> (missing_object):',
+                                     missing_count, sync_object.id)
                         sync_object.external_sync = 'missing'
                     reg_count_2 += 1
                     self.env.cr.commit()
 
             external_args = schedule.external_last_update_args()
             external_objects = []
+
             reg_count = 0
             include_count = 0
             update_count = 0
             task_count = 0
-            if not external_disable_identification:
 
-                external_object_fields = sock.execute(
-                    external_dbname, uid, external_user_pw,
-                    schedule.external_model, 'fields_get',
-                    [], {'attributes': ['string', 'help', 'type']})
-                _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):', external_object_fields.keys())
+            sync_objects = ExternalSync.with_context({'active_test': False}).search([
+                ('external_model', '=', external_model_name),
+            ])
 
-                external_args = schedule.external_last_update_args() + external_search_args
-                _logger.info(u'%s %s', '>>>>>>>>>> (external_args):', external_args)
+            if len(sync_objects) == 0:
 
                 external_object_fields = []
                 external_object_fields.append('__last_update')
-                _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):',
-                             external_object_fields)
+
                 external_objects = sock.execute(external_dbname, uid, external_user_pw,
                                                 schedule.external_model, 'search_read',
                                                 external_args,
@@ -853,58 +850,100 @@ class AbstractExternalSync(models.AbstractModel):
                 for external_object in external_objects:
 
                     reg_count += 1
+                    task_count += 1
+                    include_count += 1
 
-                    _logger.info(u'%s %s %s %s', '>>>>>>>>>>', reg_count,
-                                 external_object['id'],
-                                 external_object['__last_update'], )
+                    sync_values = {}
+                    sync_values['model'] = model_name
+                    sync_values['external_host_id'] = schedule.external_host_id.id
+                    sync_values['external_model'] = external_model_name
+                    sync_values['external_id'] = external_object['id']
+                    sync_values['external_last_update'] = external_object['__last_update']
+                    sync_values['external_sync'] = 'identified'
+                    _logger.info(u'>>>>>>>>>>>>>>> %s %s', include_count, sync_values)
+                    ExternalSync.create(sync_values)
 
-                    if task_count >= external_max_task:
-                        continue
+                self.env.cr.commit()
 
-                    if upmost_last_update is False:
-                        upmost_last_update = external_object['__last_update']
-                    else:
-                        if external_object['__last_update'] > upmost_last_update:
+            else:
+
+                if not external_disable_identification:
+
+                    external_object_fields = sock.execute(
+                        external_dbname, uid, external_user_pw,
+                        schedule.external_model, 'fields_get',
+                        [], {'attributes': ['string', 'help', 'type']})
+                    _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):', external_object_fields.keys())
+
+                    external_args = schedule.external_last_update_args() + external_search_args
+                    _logger.info(u'%s %s', '>>>>>>>>>> (external_args):', external_args)
+
+                    external_object_fields = []
+                    external_object_fields.append('__last_update')
+                    _logger.info(u'%s %s', '>>>>>>>>>> (external_object_fields):',
+                                 external_object_fields)
+                    external_objects = sock.execute(external_dbname, uid, external_user_pw,
+                                                    schedule.external_model, 'search_read',
+                                                    external_args,
+                                                    external_object_fields)
+
+                    _logger.info(u'%s %s', '>>>>>>>>>> (external_objects):', len(external_objects))
+
+                    for external_object in external_objects:
+
+                        reg_count += 1
+
+                        _logger.info(u'%s %s %s %s', '>>>>>>>>>>', reg_count,
+                                     external_object['id'],
+                                     external_object['__last_update'], )
+
+                        if task_count >= external_max_task:
+                            continue
+
+                        if upmost_last_update is False:
                             upmost_last_update = external_object['__last_update']
+                        else:
+                            if external_object['__last_update'] > upmost_last_update:
+                                upmost_last_update = external_object['__last_update']
 
-                    sync_object = ExternalSync.with_context({'active_test': False}).search([
-                        ('external_model', '=', external_model_name),
-                        ('external_id', '=', external_object['id']),
-                    ])
+                        sync_object = ExternalSync.with_context({'active_test': False}).search([
+                            ('external_model', '=', external_model_name),
+                            ('external_id', '=', external_object['id']),
+                        ])
 
-                    if sync_object.id is False:
-
-                        task_count += 1
-
-                        include_count += 1
-
-                        sync_values = {}
-                        sync_values['model'] = model_name
-                        sync_values['external_host_id'] = schedule.external_host_id.id
-                        sync_values['external_model'] = external_model_name
-                        sync_values['external_id'] = external_object['id']
-                        sync_values['external_last_update'] = external_object['__last_update']
-                        sync_values['external_sync'] = 'identified'
-                        _logger.info(u'>>>>>>>>>>>>>>> %s %s', include_count, sync_values)
-                        ExternalSync.create(sync_values)
-
-                        self.env.cr.commit()
-
-                    else:
-
-                        if external_object['__last_update'] > str(sync_object.external_last_update):
+                        if sync_object.id is False:
 
                             task_count += 1
-                            update_count += 1
 
-                            sync_object.external_last_update = external_object['__last_update']
+                            include_count += 1
 
-                            if sync_object.external_sync == 'synchronized':
-                                sync_object.external_sync = 'updated'
-
-                            _logger.info(u'>>>>>>>>>>>>>>> %s %s', update_count, sync_object)
+                            sync_values = {}
+                            sync_values['model'] = model_name
+                            sync_values['external_host_id'] = schedule.external_host_id.id
+                            sync_values['external_model'] = external_model_name
+                            sync_values['external_id'] = external_object['id']
+                            sync_values['external_last_update'] = external_object['__last_update']
+                            sync_values['external_sync'] = 'identified'
+                            _logger.info(u'>>>>>>>>>>>>>>> %s %s', include_count, sync_values)
+                            ExternalSync.create(sync_values)
 
                             self.env.cr.commit()
+
+                        else:
+
+                            if external_object['__last_update'] > str(sync_object.external_last_update):
+
+                                task_count += 1
+                                update_count += 1
+
+                                sync_object.external_last_update = external_object['__last_update']
+
+                                if sync_object.external_sync == 'synchronized':
+                                    sync_object.external_sync = 'updated'
+
+                                _logger.info(u'>>>>>>>>>>>>>>> %s %s', update_count, sync_object)
+
+                                self.env.cr.commit()
 
             _logger.info(u'%s %s', '>>>>>>>>>> external_max_task: ', external_max_task)
             _logger.info(u'%s %s', '>>>>>>>>>> external_args: ', external_args)
