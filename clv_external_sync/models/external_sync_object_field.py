@@ -14,6 +14,7 @@ class ExternalSyncObjectField(models.Model):
     local_object_field = fields.Char(string='Local Object Field')
 
     identification = fields.Boolean(string='Use during Identification', default=False)
+    inclusion = fields.Boolean(string='Use during Inclusion', default=False)
     synchronization = fields.Boolean(string='Use during Synchronization', default=False)
     adaptation = fields.Boolean(string='Use during Adaptation', default=False)
 

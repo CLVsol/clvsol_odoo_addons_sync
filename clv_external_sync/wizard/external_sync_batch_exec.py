@@ -57,16 +57,16 @@ class ExternalSyncBatchExec(models.TransientModel):
         from time import time
         start = time()
 
-        external_sync_log = False
+        sync_log = False
 
         for batch in self.batch_ids:
 
             _logger.info(u'%s %s', '>>>>>', batch.name)
 
-            if external_sync_log is False:
-                external_sync_log = '########## ' + batch.name + ' ##########\n'
+            if sync_log is False:
+                sync_log = '########## ' + batch.name + ' ##########\n'
             else:
-                external_sync_log += '\n########## ' + batch.name + ' ##########\n'
+                sync_log += '\n########## ' + batch.name + ' ##########\n'
 
             for external_sync_batch_member in batch.external_sync_batch_member_ids:
 
@@ -91,30 +91,30 @@ class ExternalSyncBatchExec(models.TransientModel):
 
                     if method_call:
 
-                        schedule.external_sync_log = 'method: ' + str(schedule.method) + '\n\n'
-                        schedule.external_sync_log +=  \
+                        schedule.sync_log = 'method: ' + str(schedule.method) + '\n\n'
+                        schedule.sync_log +=  \
                             'external_host: ' + str(schedule.external_host_id.name) + '\n' + \
                             'external_dbname: ' + str(schedule.external_host_id.external_dbname) + '\n\n' + \
-                            'external_max_task: ' + str(schedule.external_max_task) + '\n' + \
-                            'external_disable_identification: ' + \
-                            str(schedule.external_disable_identification) + '\n' + \
-                            'external_disable_check_missing: ' + \
-                            str(schedule.external_disable_check_missing) + '\n' + \
-                            'external_disable_inclusion: ' + str(schedule.external_disable_inclusion) + '\n' + \
-                            'external_disable_sync: ' + str(schedule.external_disable_sync) + '\n' + \
+                            'max_task: ' + str(schedule.max_task) + '\n' + \
+                            'disable_identification: ' + \
+                            str(schedule.disable_identification) + '\n' + \
+                            'disable_check_missing: ' + \
+                            str(schedule.disable_check_missing) + '\n' + \
+                            'disable_inclusion: ' + str(schedule.disable_inclusion) + '\n' + \
+                            'disable_sync: ' + str(schedule.disable_sync) + '\n' + \
                             'external_last_update_args: ' + str(schedule.external_last_update_args()) + '\n\n' + \
                             'enable_sequence_code_sync: ' + str(schedule.enable_sequence_code_sync) + '\n\n'
 
                         exec(method_call)
 
-                    external_sync_log += '\n########## ' + schedule.name + ' ##########\n'
-                    external_sync_log += schedule.external_sync_log
+                    sync_log += '\n########## ' + schedule.name + ' ##########\n'
+                    sync_log += schedule.sync_log
 
-            external_sync_log += '\n############################################################'
-            external_sync_log +=  \
+            sync_log += '\n############################################################'
+            sync_log +=  \
                 '\nExecution time: ' + str(secondsToStr(time() - start)) + '\n'
 
-            batch.external_sync_log = external_sync_log
+            batch.sync_log = sync_log
 
             _logger.info(u'%s %s', '>>>>> Execution time: ', secondsToStr(time() - start))
 
