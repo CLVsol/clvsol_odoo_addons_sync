@@ -65,7 +65,7 @@ class ExternalSyncScheduleExec(models.TransientModel):
             # elif schedule.method == '_object_external_recognize':
             #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
 
-            # if schedule.external_disable_check_missing is not False:
+            # if schedule.disable_check_missing is not False:
             #     method = '_object_external_identify'
             #     method_call = 'self.env["clv.external_sync"].' + method + '(schedule)'
             # method = '_object_external_identify'
@@ -77,15 +77,15 @@ class ExternalSyncScheduleExec(models.TransientModel):
 
             if method_call:
 
-                schedule.external_sync_log = 'method: ' + str(schedule.method) + '\n\n'
-                schedule.external_sync_log +=  \
+                schedule.sync_log = 'method: ' + str(schedule.method) + '\n\n'
+                schedule.sync_log +=  \
                     'external_host: ' + str(schedule.external_host_id.name) + '\n' + \
                     'external_dbname: ' + str(schedule.external_host_id.external_dbname) + '\n\n' + \
-                    'external_max_task: ' + str(schedule.external_max_task) + '\n' + \
-                    'external_disable_identification: ' + str(schedule.external_disable_identification) + '\n' + \
-                    'external_disable_check_missing: ' + str(schedule.external_disable_check_missing) + '\n' + \
-                    'external_disable_inclusion: ' + str(schedule.external_disable_inclusion) + '\n' + \
-                    'external_disable_sync: ' + str(schedule.external_disable_sync) + '\n' + \
+                    'max_task: ' + str(schedule.max_task) + '\n' + \
+                    'disable_identification: ' + str(schedule.disable_identification) + '\n' + \
+                    'disable_check_missing: ' + str(schedule.disable_check_missing) + '\n' + \
+                    'disable_inclusion: ' + str(schedule.disable_inclusion) + '\n' + \
+                    'disable_sync: ' + str(schedule.disable_sync) + '\n' + \
                     'external_last_update_args: ' + str(schedule.external_last_update_args()) + '\n\n' + \
                     'enable_sequence_code_sync: ' + str(schedule.enable_sequence_code_sync) + '\n\n'
 

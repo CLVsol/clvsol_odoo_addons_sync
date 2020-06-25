@@ -31,7 +31,7 @@ class ExternalSyncBatch(models.Model):
         string='Inclusion Date',
         default=fields.Datetime.now)
 
-    external_sync_log = fields.Text(
+    sync_log = fields.Text(
         string="Synchronization Log"
     )
 

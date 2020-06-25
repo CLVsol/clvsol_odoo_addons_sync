@@ -28,23 +28,23 @@ class ExternalSyncSchedule(models.Model):
         string='External Host'
     )
 
-    external_max_task = fields.Integer(
+    max_task = fields.Integer(
         string='Max Task Registers'
     )
 
-    external_disable_identification = fields.Boolean(
+    disable_identification = fields.Boolean(
         string='Disable Identification'
     )
 
-    external_disable_check_missing = fields.Boolean(
+    disable_check_missing = fields.Boolean(
         string='Disable Check Missing'
     )
 
-    external_disable_inclusion = fields.Boolean(
+    disable_inclusion = fields.Boolean(
         string='Disable Inclusion'
     )
 
-    external_disable_sync = fields.Boolean(
+    disable_sync = fields.Boolean(
         string='Disable Sync'
     )
 
@@ -96,13 +96,13 @@ class ExternalSyncSchedule(models.Model):
         help="External model name, e.g. 'res.partner'"
     )
 
-    external_sequence_code = fields.Char(
-        string='External Sequence Code',
+    sequence_code = fields.Char(
+        string='Sequence Code',
         required=False,
-        help="External Sequence Code, e.g. 'clv_address.code."
+        help="Sequence Code, e.g. 'clv_address.code."
     )
 
-    external_sync_log = fields.Text(
+    sync_log = fields.Text(
         string="Synchronization Log"
     )
 
@@ -130,11 +130,11 @@ class ExternalSyncSchedule(models.Model):
 
         if schedule.template_id.id is not False:
             schedule.external_host_id = schedule.template_id.external_host_id
-            schedule.external_max_task = schedule.template_id.external_max_task
-            schedule.external_disable_identification = schedule.template_id.external_disable_identification
-            schedule.external_disable_check_missing = schedule.template_id.external_disable_check_missing
-            schedule.external_disable_inclusion = schedule.template_id.external_disable_inclusion
-            schedule.external_disable_sync = schedule.template_id.external_disable_sync
+            schedule.max_task = schedule.template_id.max_task
+            schedule.disable_identification = schedule.template_id.disable_identification
+            schedule.disable_check_missing = schedule.template_id.disable_check_missing
+            schedule.disable_inclusion = schedule.template_id.disable_inclusion
+            schedule.disable_sync = schedule.template_id.disable_sync
             schedule.external_last_update_start = schedule.template_id.external_last_update_start
             schedule.external_last_update_end = schedule.template_id.external_last_update_end
             schedule.enable_sequence_code_sync = schedule.template_id.enable_sequence_code_sync
@@ -143,7 +143,7 @@ class ExternalSyncSchedule(models.Model):
             schedule.method_args = schedule.template_id.method_args
             schedule.sequence_code = schedule.template_id.sequence_code
             schedule.external_model = schedule.template_id.external_model
-            schedule.external_sequence_code = schedule.template_id.external_sequence_code
+            schedule.sequence_code = schedule.template_id.sequence_code
 
         ExternalSyncObjectField = self.env['clv.external_sync.object_field']
         for object_field in schedule.template_id.object_field_ids:
@@ -151,6 +151,7 @@ class ExternalSyncSchedule(models.Model):
                 'external_object_field': object_field.external_object_field,
                 'local_object_field': object_field.local_object_field,
                 'identification': object_field.identification,
+                'inclusion': object_field.inclusion,
                 'synchronization': object_field.synchronization,
                 'adaptation': object_field.adaptation,
                 'sequence': object_field.sequence,
@@ -165,11 +166,11 @@ class ExternalSyncSchedule(models.Model):
         ExternalSyncObjectField = self.env['clv.external_sync.object_field']
         if self.template_id.id:
             self.external_host_id = self.template_id.external_host_id
-            self.external_max_task = self.template_id.external_max_task
-            self.external_disable_identification = self.template_id.external_disable_identification
-            self.external_disable_check_missing = self.template_id.external_disable_check_missing
-            self.external_disable_inclusion = self.template_id.external_disable_inclusion
-            self.external_disable_sync = self.template_id.external_disable_sync
+            self.max_task = self.template_id.max_task
+            self.disable_identification = self.template_id.disable_identification
+            self.disable_check_missing = self.template_id.disable_check_missing
+            self.disable_inclusion = self.template_id.disable_inclusion
+            self.disable_sync = self.template_id.disable_sync
             self.external_last_update_start = self.template_id.external_last_update_start
             self.external_last_update_end = self.template_id.external_last_update_end
             self.enable_sequence_code_sync = self.template_id.enable_sequence_code_sync
@@ -178,7 +179,7 @@ class ExternalSyncSchedule(models.Model):
             self.method_args = self.template_id.method_args
             self.sequence_code = self.template_id.sequence_code
             self.external_model = self.template_id.external_model
-            self.external_sequence_code = self.template_id.external_sequence_code
+            self.sequence_code = self.template_id.sequence_code
 
             schedule_id = self._origin.id
 
@@ -195,6 +196,7 @@ class ExternalSyncSchedule(models.Model):
                         'external_object_field': object_field.external_object_field,
                         'local_object_field': object_field.local_object_field,
                         'identification': object_field.identification,
+                        'inclusion': object_field.inclusion,
                         'synchronization': object_field.synchronization,
                         'adaptation': object_field.adaptation,
                         'sequence': object_field.sequence,

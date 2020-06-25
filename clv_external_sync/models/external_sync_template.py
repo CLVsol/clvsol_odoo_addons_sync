@@ -21,23 +21,23 @@ class ExternalSyncTemplate(models.Model):
         string='External Host'
     )
 
-    external_max_task = fields.Integer(
+    max_task = fields.Integer(
         string='Max Task Registers'
     )
 
-    external_disable_identification = fields.Boolean(
+    disable_identification = fields.Boolean(
         string='Disable Identification'
     )
 
-    external_disable_check_missing = fields.Boolean(
+    disable_check_missing = fields.Boolean(
         string='Disable Check Missing'
     )
 
-    external_disable_inclusion = fields.Boolean(
+    disable_inclusion = fields.Boolean(
         string='Disable Inclusion'
     )
 
-    external_disable_sync = fields.Boolean(
+    disable_sync = fields.Boolean(
         string='Disable Sync'
     )
 
@@ -89,7 +89,7 @@ class ExternalSyncTemplate(models.Model):
         help="External model name, e.g. 'res.partner'"
     )
 
-    external_sequence_code = fields.Char(
+    sequence_code = fields.Char(
         string='External Sequence Code',
         required=False,
         help="External Sequence Code, e.g. 'clv_address.code."

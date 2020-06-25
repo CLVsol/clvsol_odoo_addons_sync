@@ -32,37 +32,37 @@ class ExternalSypnTemplateMassEdit(models.TransientModel):
          ], string='External Host:', default=False, readonly=False, required=False
     )
 
-    external_disable_identification = fields.Boolean(
+    disable_identification = fields.Boolean(
         string='Disable Identification'
     )
-    external_disable_identification_selection = fields.Selection(
+    disable_identification_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
          ], string='Disable Identification:', default=False, readonly=False, required=False
     )
 
-    external_disable_check_missing = fields.Boolean(
+    disable_check_missing = fields.Boolean(
         string='Disable Check Missing'
     )
-    external_disable_check_missing_selection = fields.Selection(
+    disable_check_missing_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
          ], string='Disable Check Missing:', default=False, readonly=False, required=False
     )
 
-    external_disable_inclusion = fields.Boolean(
+    disable_inclusion = fields.Boolean(
         string='Disable Inclusion'
     )
-    external_disable_inclusion_selection = fields.Selection(
+    disable_inclusion_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
          ], string='Disable Inclusion:', default=False, readonly=False, required=False
     )
 
-    external_disable_sync = fields.Boolean(
+    disable_sync = fields.Boolean(
         string='Disable Sync'
     )
-    external_disable_sync_selection = fields.Selection(
+    disable_sync_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
          ], string='Disable Sync:', default=False, readonly=False, required=False
@@ -112,25 +112,25 @@ class ExternalSypnTemplateMassEdit(models.TransientModel):
             if self.external_host_id_selection == 'remove':
                 external_sync_template.external_host_id = False
 
-            if self.external_disable_identification_selection == 'set':
-                external_sync_template.external_disable_identification = self.external_disable_identification
-            if self.external_disable_identification_selection == 'remove':
-                external_sync_template.external_disable_identification = False
+            if self.disable_identification_selection == 'set':
+                external_sync_template.disable_identification = self.disable_identification
+            if self.disable_identification_selection == 'remove':
+                external_sync_template.disable_identification = False
 
-            if self.external_disable_check_missing_selection == 'set':
-                external_sync_template.external_disable_check_missing = self.external_disable_check_missing
-            if self.external_disable_check_missing_selection == 'remove':
-                external_sync_template.external_disable_check_missing = False
+            if self.disable_check_missing_selection == 'set':
+                external_sync_template.disable_check_missing = self.disable_check_missing
+            if self.disable_check_missing_selection == 'remove':
+                external_sync_template.disable_check_missing = False
 
-            if self.external_disable_inclusion_selection == 'set':
-                external_sync_template.external_disable_inclusion = self.external_disable_inclusion
-            if self.external_disable_inclusion_selection == 'remove':
-                external_sync_template.external_disable_inclusion = False
+            if self.disable_inclusion_selection == 'set':
+                external_sync_template.disable_inclusion = self.disable_inclusion
+            if self.disable_inclusion_selection == 'remove':
+                external_sync_template.disable_inclusion = False
 
-            if self.external_disable_sync_selection == 'set':
-                external_sync_template.external_disable_sync = self.external_disable_sync
-            if self.external_disable_sync_selection == 'remove':
-                external_sync_template.external_disable_sync = False
+            if self.disable_sync_selection == 'set':
+                external_sync_template.disable_sync = self.disable_sync
+            if self.disable_sync_selection == 'remove':
+                external_sync_template.disable_sync = False
 
             if self.external_last_update_start_selection == 'set':
                 external_sync_template.external_last_update_start = self.external_last_update_start
