@@ -667,6 +667,11 @@ class AbstractExternalSync(models.AbstractModel):
         from time import time
         start = time()
 
+        method_args = {}
+        if schedule.method_args is not False:
+            method_args = literal_eval(schedule.method_args)
+        _logger.info(u'%s %s', '>>>>>>>>>> method_args: ', method_args)
+
         AbstractExternalSync = self.env['clv.abstract.external_sync']
         ExternalSync = self.env['clv.external_sync']
         LocalObject = self.env[schedule.model]
@@ -801,8 +806,16 @@ class AbstractExternalSync(models.AbstractModel):
                         external_object, external_object_fields_inclusion,
                         False, ModelFields, ExternalSync)
 
-                    if 'active_log' in local_object_fields_adapt:
-                        local_values['active_log'] = False
+                    local_constants = {}
+                    if 'local_constants' in method_args.keys():
+                        local_constants = method_args['local_constants']
+
+                    for field in local_object_fields_adapt:
+
+                        if local_constants != {}:
+                            if field in local_constants.keys():
+                                local_values[field] = local_constants[field]
+
                     _logger.info(u'>>>>>>>>>>>>>>> %s %s', include_count, local_values)
                     new_local_object = LocalObject.create(local_values)
 
