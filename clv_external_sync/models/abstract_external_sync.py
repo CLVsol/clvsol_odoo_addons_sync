@@ -754,7 +754,7 @@ class AbstractExternalSync(models.AbstractModel):
                             external_object, external_object_fields,
                             external_sync, ModelFields, ExternalSync)
 
-                        local_values.update(local_values_constants)
+                    local_values.update(local_values_constants)
 
                     _logger.info(u'>>>>>>>>>>>>>>> %s %s %s', include_count, external_sync, local_values)
                     new_local_object = LocalObject.create(local_values)
