@@ -247,9 +247,7 @@ class AbstractExternalSync(models.AbstractModel):
 
     def _object_external_sync(self, schedule):
 
-        disable_identification = schedule.disable_identification
-        disable_check_missing = schedule.disable_check_missing
-        if (not disable_identification) or (not disable_check_missing):
+        if (schedule.enable_identification) or (schedule.enable_check_missing):
             self._object_external_identify(schedule)
 
         from time import time
@@ -279,12 +277,12 @@ class AbstractExternalSync(models.AbstractModel):
 
         if uid is not False:
 
-            if (not schedule.disable_inclusion) and \
-               (schedule.disable_sync):
+            if schedule.enable_inclusion and \
+               (not schedule.enable_sync):
 
                 pass
 
-            elif (not schedule.disable_sync):
+            elif schedule.enable_sync:
 
                 schedule.sync_log += 'Executing: "' + '_object_external_sync' + '"...\n\n'
 
@@ -345,7 +343,7 @@ class AbstractExternalSync(models.AbstractModel):
                             sync_object.external_sync = 'updated'
 
                         if (sync_object.external_sync == 'included' or sync_object.external_sync == 'updated') and \
-                           schedule.disable_sync is False:
+                           schedule.enable_sync:
 
                             sync_count += 1
                             task_count += 1
@@ -432,12 +430,12 @@ class AbstractExternalSync(models.AbstractModel):
 
     def _object_external_recognize(self, schedule):
 
-        schedule.disable_inclusion = True
+        schedule.enable_inclusion = False
 
-        if (not schedule.disable_identification) or (not schedule.disable_check_missing):
+        if schedule.enable_identification or schedule.enable_check_missing:
             self._object_external_identify(schedule)
 
-        if (not schedule.disable_sync):
+        if schedule.enable_sync:
 
             from time import time
             start = time()
@@ -676,7 +674,7 @@ class AbstractExternalSync(models.AbstractModel):
             missing_count = 0
             reg_count_2 = 0
 
-            if not schedule.disable_check_missing:
+            if schedule.enable_check_missing:
 
                 external_object_ids = sock.execute(
                     external_dbname, uid, external_user_pw,
@@ -714,9 +712,9 @@ class AbstractExternalSync(models.AbstractModel):
 
             local_objects = LocalObject.with_context({'active_test': False}).search([])
 
-            if len(sync_objects) == 0 and len(local_objects) == 0 and not schedule.disable_inclusion:
+            if len(sync_objects) == 0 and len(local_objects) == 0 and schedule.enable_inclusion:
 
-                if schedule.disable_sync:
+                if not schedule.enable_sync:
                     external_object_fields_inclusion.append('__last_update')
                     external_objects = sock.execute(external_dbname, uid, external_user_pw,
                                                     external_model_name, 'search_read',
@@ -741,7 +739,7 @@ class AbstractExternalSync(models.AbstractModel):
                     task_count += 1
                     include_count += 1
 
-                    if schedule.disable_sync:
+                    if not schedule.enable_sync:
                         external_sync = 'included'
                         local_values, external_sync = self._get_local_values(
                             local_object_model, local_object_fields_inclusion,
@@ -808,7 +806,7 @@ class AbstractExternalSync(models.AbstractModel):
 
             else:
 
-                if not schedule.disable_identification:
+                if schedule.enable_identification:
 
                     external_object_fields = sock.execute(
                         external_dbname, uid, external_user_pw,

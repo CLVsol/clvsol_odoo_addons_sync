@@ -65,7 +65,7 @@ class ExternalSyncScheduleExec(models.TransientModel):
             # elif schedule.method == '_object_external_recognize':
             #     method_call = 'self.env["clv.external_sync"].' + schedule.method + '(schedule)'
 
-            # if schedule.disable_check_missing is not False:
+            # if schedule.enable_check_missing:
             #     method = '_object_external_identify'
             #     method_call = 'self.env["clv.external_sync"].' + method + '(schedule)'
             # method = '_object_external_identify'
@@ -82,10 +82,10 @@ class ExternalSyncScheduleExec(models.TransientModel):
                     'external_host: ' + str(schedule.external_host_id.name) + '\n' + \
                     'external_dbname: ' + str(schedule.external_host_id.external_dbname) + '\n\n' + \
                     'max_task: ' + str(schedule.max_task) + '\n' + \
-                    'disable_identification: ' + str(schedule.disable_identification) + '\n' + \
-                    'disable_check_missing: ' + str(schedule.disable_check_missing) + '\n' + \
-                    'disable_inclusion: ' + str(schedule.disable_inclusion) + '\n' + \
-                    'disable_sync: ' + str(schedule.disable_sync) + '\n' + \
+                    'enable_identification: ' + str(schedule.enable_identification) + '\n' + \
+                    'enable_check_missing: ' + str(schedule.enable_check_missing) + '\n' + \
+                    'enable_inclusion: ' + str(schedule.enable_inclusion) + '\n' + \
+                    'enable_sync: ' + str(schedule.enable_sync) + '\n' + \
                     'external_last_update_args: ' + str(schedule.external_last_update_args()) + '\n\n' + \
                     'enable_sequence_code_sync: ' + str(schedule.enable_sequence_code_sync) + '\n\n'
 

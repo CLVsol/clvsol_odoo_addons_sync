@@ -15,37 +15,37 @@ class ExternalSyncBatchMember(models.Model):
         store=True
     )
 
-    ref_disable_identification = fields.Boolean(
-        string='Disable Identification',
+    ref_enable_identification = fields.Boolean(
+        string='Enable Identification',
         compute='_compute_refenceable_model_schedule',
         store=True
     )
-    ref_disable_identification_suport = fields.Boolean(
-        string='Disable Identification:',
+    ref_enable_identification_suport = fields.Boolean(
+        string='Enable Identification:',
         compute='_compute_refenceable_model_schedule',
         store=False,
         compute_sudo=True
     )
 
-    ref_disable_inclusion = fields.Boolean(
-        string='Disable Inclusion',
+    ref_enable_inclusion = fields.Boolean(
+        string='Enable Inclusion',
         compute='_compute_refenceable_model_schedule',
         store=True
     )
-    ref_disable_inclusion_suport = fields.Boolean(
-        string='Disable Inclusion:',
+    ref_enable_inclusion_suport = fields.Boolean(
+        string='Enable Inclusion:',
         compute='_compute_refenceable_model_schedule',
         store=False,
         compute_sudo=True
     )
 
-    ref_disable_sync = fields.Boolean(
-        string='Disable Sync',
+    ref_enable_sync = fields.Boolean(
+        string='Enable Sync',
         compute='_compute_refenceable_model_schedule',
         store=True
     )
-    ref_disable_sync_suport = fields.Boolean(
-        string='Disable Sync:',
+    ref_enable_sync_suport = fields.Boolean(
+        string='Enable Sync:',
         compute='_compute_refenceable_model_schedule',
         store=False,
         compute_sudo=True
@@ -57,17 +57,17 @@ class ExternalSyncBatchMember(models.Model):
             try:
                 if record.ref_id:
                     record.ref_method = record.ref_id.method
-                    record.ref_disable_identification = record.ref_id.disable_identification
-                    record.ref_disable_inclusion = record.ref_id.disable_inclusion
-                    record.ref_disable_sync = record.ref_id.disable_sync
-                    record.ref_disable_identification_suport = record.ref_id.disable_identification
-                    record.ref_disable_inclusion_suport = record.ref_id.disable_inclusion
-                    record.ref_disable_sync_suport = record.ref_id.disable_sync
+                    record.ref_enable_identification = record.ref_id.enable_identification
+                    record.ref_enable_inclusion = record.ref_id.enable_inclusion
+                    record.ref_enable_sync = record.ref_id.enable_sync
+                    record.ref_enable_identification_suport = record.ref_id.enable_identification
+                    record.ref_enable_inclusion_suport = record.ref_id.enable_inclusion
+                    record.ref_enable_sync_suport = record.ref_id.enable_sync
             except Exception:
                 record.ref_method = False
-                record.ref_disable_identification = False
-                record.ref_disable_inclusion = False
-                record.ref_disable_sync = False
-                record.ref_disable_identification_suport = False
-                record.ref_disable_inclusion_suport = False
-                record.ref_disable_sync_suport = False
+                record.ref_enable_identification = False
+                record.ref_enable_inclusion = False
+                record.ref_enable_sync = False
+                record.ref_enable_identification_suport = False
+                record.ref_enable_inclusion_suport = False
+                record.ref_enable_sync_suport = False

@@ -32,40 +32,40 @@ class ExternalSypnTemplateMassEdit(models.TransientModel):
          ], string='External Host:', default=False, readonly=False, required=False
     )
 
-    disable_identification = fields.Boolean(
-        string='Disable Identification'
+    enable_identification = fields.Boolean(
+        string='Enable Identification'
     )
-    disable_identification_selection = fields.Selection(
+    enable_identification_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
-         ], string='Disable Identification:', default=False, readonly=False, required=False
+         ], string='Enable Identification:', default=False, readonly=False, required=False
     )
 
-    disable_check_missing = fields.Boolean(
-        string='Disable Check Missing'
+    enable_check_missing = fields.Boolean(
+        string='Enable Check Missing'
     )
-    disable_check_missing_selection = fields.Selection(
+    enable_check_missing_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
-         ], string='Disable Check Missing:', default=False, readonly=False, required=False
+         ], string='Enable Check Missing:', default=False, readonly=False, required=False
     )
 
-    disable_inclusion = fields.Boolean(
-        string='Disable Inclusion'
+    enable_inclusion = fields.Boolean(
+        string='Enable Inclusion'
     )
-    disable_inclusion_selection = fields.Selection(
+    enable_inclusion_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
-         ], string='Disable Inclusion:', default=False, readonly=False, required=False
+         ], string='Enable Inclusion:', default=False, readonly=False, required=False
     )
 
-    disable_sync = fields.Boolean(
-        string='Disable Sync'
+    enable_sync = fields.Boolean(
+        string='Enable Sync'
     )
-    disable_sync_selection = fields.Selection(
+    enable_sync_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
-         ], string='Disable Sync:', default=False, readonly=False, required=False
+         ], string='Enable Sync:', default=False, readonly=False, required=False
     )
 
     external_last_update_start = fields.Datetime(
@@ -112,25 +112,25 @@ class ExternalSypnTemplateMassEdit(models.TransientModel):
             if self.external_host_id_selection == 'remove':
                 external_sync_template.external_host_id = False
 
-            if self.disable_identification_selection == 'set':
-                external_sync_template.disable_identification = self.disable_identification
-            if self.disable_identification_selection == 'remove':
-                external_sync_template.disable_identification = False
+            if self.enable_identification_selection == 'set':
+                external_sync_template.enable_identification = self.enable_identification
+            if self.enable_identification_selection == 'remove':
+                external_sync_template.enable_identification = False
 
-            if self.disable_check_missing_selection == 'set':
-                external_sync_template.disable_check_missing = self.disable_check_missing
-            if self.disable_check_missing_selection == 'remove':
-                external_sync_template.disable_check_missing = False
+            if self.enable_check_missing_selection == 'set':
+                external_sync_template.enable_check_missing = self.enable_check_missing
+            if self.enable_check_missing_selection == 'remove':
+                external_sync_template.enable_check_missing = False
 
-            if self.disable_inclusion_selection == 'set':
-                external_sync_template.disable_inclusion = self.disable_inclusion
-            if self.disable_inclusion_selection == 'remove':
-                external_sync_template.disable_inclusion = False
+            if self.enable_inclusion_selection == 'set':
+                external_sync_template.enable_inclusion = self.enable_inclusion
+            if self.enable_inclusion_selection == 'remove':
+                external_sync_template.enable_inclusion = False
 
-            if self.disable_sync_selection == 'set':
-                external_sync_template.disable_sync = self.disable_sync
-            if self.disable_sync_selection == 'remove':
-                external_sync_template.disable_sync = False
+            if self.enable_sync_selection == 'set':
+                external_sync_template.enable_sync = self.enable_sync
+            if self.enable_sync_selection == 'remove':
+                external_sync_template.enable_sync = False
 
             if self.external_last_update_start_selection == 'set':
                 external_sync_template.external_last_update_start = self.external_last_update_start

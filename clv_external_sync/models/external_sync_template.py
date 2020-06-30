@@ -25,20 +25,24 @@ class ExternalSyncTemplate(models.Model):
         string='Max Task Registers'
     )
 
-    disable_identification = fields.Boolean(
-        string='Disable Identification'
+    enable_identification = fields.Boolean(
+        string='Enable Identification',
+        default=True
     )
 
-    disable_check_missing = fields.Boolean(
-        string='Disable Check Missing'
+    enable_check_missing = fields.Boolean(
+        string='Enable Check Missing',
+        default=True
     )
 
-    disable_inclusion = fields.Boolean(
-        string='Disable Inclusion'
+    enable_inclusion = fields.Boolean(
+        string='Enable Inclusion',
+        default=True
     )
 
-    disable_sync = fields.Boolean(
-        string='Disable Sync'
+    enable_sync = fields.Boolean(
+        string='Enable Sync',
+        default=True
     )
 
     external_last_update_start = fields.Datetime(

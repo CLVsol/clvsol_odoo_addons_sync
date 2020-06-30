@@ -15,12 +15,12 @@
                 <field name="ref_model"/>
                 <field name="ref_name"/>
                 <field name="ref_method"/>
-                <field name="ref_disable_identification"/>
-                <field name="ref_disable_inclusion"/>
-                <field name="ref_disable_sync"/>
-                <field name="ref_disable_identification_suport" invisible="True"/>
-                <field name="ref_disable_inclusion_suport" invisible="True"/>
-                <field name="ref_disable_sync_suport" invisible="True"/>
+                <field name="ref_enable_identification"/>
+                <field name="ref_enable_inclusion"/>
+                <field name="ref_enable_sync"/>
+                <field name="ref_enable_identification_suport" invisible="True"/>
+                <field name="ref_enable_inclusion_suport" invisible="True"/>
+                <field name="ref_enable_sync_suport" invisible="True"/>
             </field>
         </field>
     </record>
@@ -34,12 +34,12 @@
             <field name="external_sync_batch_id" position="after">
                 <field name="ref_id"/>
                 <field name="ref_method"/>
-                <field name="ref_disable_identification"/>
-                <field name="ref_disable_inclusion"/>
-                <field name="ref_disable_sync"/>
-                <field name="ref_disable_identification_suport" invisible="True"/>
-                <field name="ref_disable_inclusion_suport" invisible="True"/>
-                <field name="ref_disable_sync_suport" invisible="True"/>
+                <field name="ref_enable_identification"/>
+                <field name="ref_enable_inclusion"/>
+                <field name="ref_enable_sync"/>
+                <field name="ref_enable_identification_suport" invisible="True"/>
+                <field name="ref_enable_inclusion_suport" invisible="True"/>
+                <field name="ref_enable_sync_suport" invisible="True"/>
             </field>
         </field>
     </record>
@@ -55,17 +55,17 @@
                 <field name="ref_model"/>
                 <field name="ref_name"/>
                 <field name="ref_method"/>
-                <field name="ref_disable_identification"/>
-                <field name="ref_disable_inclusion"/>
-                <field name="ref_disable_sync"/>
+                <field name="ref_enable_identification"/>
+                <field name="ref_enable_inclusion"/>
+                <field name="ref_enable_sync"/>
             </field>
             <group name="group_by" position="inside">
                 <filter name="filter_ref_model" string="Refers to (Model)" context="{'group_by': 'ref_model'}"/>
                 <filter name="filter_ref_name" string="Member Name" context="{'group_by': 'ref_name'}"/>
                 <filter name="filter_ref_method" string="Method" context="{'group_by': 'ref_method'}"/>
-                <filter name="filter_ref_disable_identification" string="Disable Identification" context="{'group_by': 'ref_disable_identification'}"/>
-                <filter name="filter_ref_disable_inclusion" string="Disable Inclusion" context="{'group_by': 'ref_disable_inclusion'}"/>
-                <filter name="filter_ref_disable_sync" string="Disable Sync" context="{'group_by': 'ref_disable_sync'}"/>
+                <filter name="filter_ref_enable_identification" string="Enable Identification" context="{'group_by': 'ref_enable_identification'}"/>
+                <filter name="filter_ref_enable_inclusion" string="Enable Inclusion" context="{'group_by': 'ref_enable_inclusion'}"/>
+                <filter name="filter_ref_enable_sync" string="Enable Sync" context="{'group_by': 'ref_enable_sync'}"/>
             </group>
         </field>
     </record>
