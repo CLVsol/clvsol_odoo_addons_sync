@@ -983,13 +983,13 @@ class AbstractExternalSync(models.AbstractModel):
 
                 elif local_field_ttype == 'reference':
                     if external_object[external_object_fields[i]] is not False:
-                        local_ref_model_name, local_ref_id = \
-                            local_object[local_object_fields[i]].split(',')
+                        # local_ref_model_name, local_ref_id = \
+                        #     local_object[local_object_fields[i]].split(',')
                         external_ref_model_name, external_ref_id = \
                             external_object[external_object_fields[i]].split(',')
                         try:
                             relation_sync_object = ExternalSync.with_context({'active_test': False}).search([
-                                ('model', '=', local_ref_model_name),
+                                # ('model', '=', local_ref_model_name),
                                 ('external_model', '=', external_ref_model_name),
                                 ('external_id', '=', int(external_ref_id)),
                             ])
