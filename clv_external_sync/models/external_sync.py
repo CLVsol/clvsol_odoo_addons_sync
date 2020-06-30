@@ -11,7 +11,7 @@ class ExternalSync(models.Model):
     _inherit = 'clv.abstract.external_sync'
     _order = "id desc"
 
-    model = fields.Char(string='Model Name', required=True)
+    model = fields.Char(string='Model Name', required=True, index=True)
     res_id = fields.Integer(string='Record ID', help="ID of the target record in the database")
     res_last_update = fields.Datetime(string="Record Last Update")
     reference = fields.Char(string='Reference', compute='_compute_reference', readonly=True, store=True)

@@ -22,19 +22,19 @@ class ExternalSyncMassEdit(models.TransientModel):
         default=_default_external_sync_ids
     )
 
-    external_sync = fields.Selection(
+    external_sync_state = fields.Selection(
         [('identified', 'Identified'),
          ('included', 'Included'),
          ('updated', 'Updated'),
          ('synchronized', 'Synchronized'),
          ('recognized', 'Recognized'),
          ('missing', 'Missing'),
-         ], 'External Synchronization'
+         ], 'External Synchronization State'
     )
-    external_sync_selection = fields.Selection(
+    external_sync_state_selection = fields.Selection(
         [('set', 'Set'),
          ('remove', 'Remove'),
-         ], string='External Synchronization:', default=False, readonly=False, required=False
+         ], string='External Synchronization State:', default=False, readonly=False, required=False
     )
 
     # @api.multi

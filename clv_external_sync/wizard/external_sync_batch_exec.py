@@ -110,6 +110,8 @@ class ExternalSyncBatchExec(models.TransientModel):
                     sync_log += '\n########## ' + schedule.name + ' ##########\n'
                     sync_log += schedule.sync_log
 
+                    self.env.cr.commit()
+
             sync_log += '\n############################################################'
             sync_log +=  \
                 '\nExecution time: ' + str(secondsToStr(time() - start)) + '\n'
