@@ -942,10 +942,10 @@ class AbstractExternalSync(models.AbstractModel):
                 ('model_id', '=', local_object_model.id),
                 ('name', '=', local_object_fields[i]),
             ])
-            external_model_field = ModelFields.search([
-                ('model_id', '=', external_object_model.id),
-                ('name', '=', external_object_fields[i]),
-            ])
+            # external_model_field = ModelFields.search([
+            #     ('model_id', '=', external_object_model.id),
+            #     ('name', '=', external_object_fields[i]),
+            # ])
 
             if local_model_field.id is not False:
 
@@ -963,11 +963,11 @@ class AbstractExternalSync(models.AbstractModel):
                 elif local_field_ttype == 'many2one':
                     if external_object[external_object_fields[i]] is not False:
                         local_model_rel = local_model_field[0].relation
-                        external_model_rel = external_model_field[0].relation
+                        # external_model_rel = external_model_field[0].relation
                         external_rel_id = external_object[external_object_fields[i]][0]
                         relation_sync_object = ExternalSync.with_context({'active_test': False}).search([
                             ('model', '=', local_model_rel),
-                            ('external_model', '=', external_model_rel),
+                            # ('external_model', '=', external_model_rel),
                             ('external_id', '=', int(external_rel_id)),
                         ])
                         RelationObject = self.env[local_model_rel]
@@ -1011,7 +1011,7 @@ class AbstractExternalSync(models.AbstractModel):
                 elif local_field_ttype == 'many2many':
                     if external_object[external_object_fields[i]] is not False:
                         local_model_rel = local_model_field[0].relation
-                        external_model_rel = external_model_field[0].relation
+                        # external_model_rel = external_model_field[0].relation
                         external_rel_ids_ = external_object[external_object_fields[i]]
                         RelationObject = self.env[local_model_rel]
 
@@ -1020,7 +1020,7 @@ class AbstractExternalSync(models.AbstractModel):
                         for external_id in external_rel_ids_:
                             relation_sync_object = ExternalSync.with_context({'active_test': False}).search([
                                 ('model', '=', local_model_rel),
-                                ('extermaç_model', '=', external_model_rel),
+                                # ('external_model', '=', external_model_rel),
                                 ('external_id', '=', int(external_id)),
                             ])
                             RelationObject = self.env[local_model_rel]
