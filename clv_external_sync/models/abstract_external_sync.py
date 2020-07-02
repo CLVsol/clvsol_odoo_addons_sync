@@ -704,7 +704,7 @@ class AbstractExternalSync(models.AbstractModel):
                     reg_count_2 += 1
                     self.env.cr.commit()
 
-            external_args = schedule.external_last_update_args()
+            external_args = schedule.external_last_update_args() + external_search_args
             external_objects = []
 
             reg_count = 0
