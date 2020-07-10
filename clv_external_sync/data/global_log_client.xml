@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!-- Copyright (C) 2013-Today  Carlos Eduardo Vercelino - CLVsol
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="0">
+ 
+	<record id="clv_global_log_client_clv_external_sync_host" model="clv.global_log.client">
+		<field name="model_name" eval="&quot;&quot;&quot;clv.external_sync.host&quot;&quot;&quot;"/>
+	</record>
+	 
+	<record id="clv_global_log_client_clv_external_sync_template" model="clv.global_log.client">
+		<field name="model_name" eval="&quot;&quot;&quot;clv.external_sync.template&quot;&quot;&quot;"/>
+	</record>
+	 
+	<record id="clv_global_log_client_clv_external_sync_schedule" model="clv.global_log.client">
+		<field name="model_name" eval="&quot;&quot;&quot;clv.external_sync.schedule&quot;&quot;&quot;"/>
+	</record>
+	 
+	<record id="clv_global_log_client_clv_external_sync_batch" model="clv.global_log.client">
+		<field name="model_name" eval="&quot;&quot;&quot;clv.external_sync.batch&quot;&quot;&quot;"/>
+	</record>
+	 
+</odoo>
