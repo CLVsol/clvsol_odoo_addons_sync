@@ -58,9 +58,9 @@ class ExternalSyncMassEdit(models.TransientModel):
 
             _logger.info(u'%s %s', '>>>>>', external_sync.reference)
 
-            if self.external_sync_selection == 'set':
-                external_sync.external_sync = self.external_sync
-            if self.external_sync_selection == 'remove':
-                external_sync.external_sync = False
+            if self.external_sync_state_selection == 'set':
+                external_sync.external_sync_state = self.external_sync_state
+            if self.external_sync_state_selection == 'remove':
+                external_sync.external_sync_state = False
 
         return True
