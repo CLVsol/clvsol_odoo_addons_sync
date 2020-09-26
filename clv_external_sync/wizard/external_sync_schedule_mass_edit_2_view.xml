@@ -78,13 +78,12 @@
     </record>
 
     <!-- More button Action -->
-    <act_window 
-        id="clv_external_sync_schedule_mass_edit_2_action"
-        name="External Sync Schedule Mass Edit (2)"
-        binding_model="clv.external_sync.batch.member"
-        res_model="clv.external_sync.schedule.mass_edit_2"
-        view_mode="form"
-        target="new"
-    />
+    <record id="clv_external_sync_schedule_mass_edit_2_action" model="ir.actions.act_window">
+        <field name="name">External Sync Schedule Mass Edit (2)</field>
+        <field name="binding_model_id" ref="model_clv_external_sync_batch_member"/>
+        <field name="res_model">clv.external_sync.schedule.mass_edit_2</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
 </odoo>

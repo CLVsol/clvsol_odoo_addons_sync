@@ -40,6 +40,7 @@
         'wizard/external_sync_batch_exec_view.xml',
         'wizard/external_sync_batch_member_mass_edit_view.xml',
         'wizard/external_sync_schedule_mass_edit_2_view.xml',
+        'views/external_sync_menu_view.xml',
         'data/global_log_client.xml',
     ],
     'demo': [],
