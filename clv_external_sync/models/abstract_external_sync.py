@@ -40,6 +40,7 @@ class AbstractExternalSync(models.AbstractModel):
          ('missing', 'Missing'),
          ], 'External Synchronization State'
     )
+    external_sync_info = fields.Text(string='Sync Informations')
 
     @api.model
     def external_sync_host_login(self, external_host, external_dbname, external_user, external_user_pw):
@@ -159,7 +160,7 @@ class AbstractExternalSync(models.AbstractModel):
 
     def _object_synchronize(
         self, sock, external_dbname, uid, external_user_pw,
-        external_model_name, external_id, schedule, local_model_name
+        external_model_name, external_id, schedule, local_model_name,
     ):
 
         method_args = {}
@@ -668,8 +669,10 @@ class AbstractExternalSync(models.AbstractModel):
                         local_values_constants[field] = local_constants[field]
 
             external_search_args = []
+            if schedule.apply_domain_filter:
+                external_search_args += literal_eval(schedule.domain_filter)
             if 'active' in external_object_fields:
-                external_search_args = [
+                external_search_args += [
                     '|',
                     ('active', '=', True),
                     ('active', '=', False),

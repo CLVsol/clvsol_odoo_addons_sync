@@ -60,6 +60,15 @@ class ExternalSyncSchedule(models.Model):
         string="Last Update (End)"
     )
 
+    apply_domain_filter = fields.Boolean(string='Apply Domain Filter', default=False)
+
+    domain_filter = fields.Text(
+        string='Domain Filter',
+        required=False,
+        help="Domain Filter",
+        default='[]'
+    )
+
     enable_sequence_code_sync = fields.Boolean(
         string='Enable Sequence Code Sync'
     )
@@ -141,6 +150,8 @@ class ExternalSyncSchedule(models.Model):
             schedule.enable_sync = schedule.template_id.enable_sync
             schedule.external_last_update_start = schedule.template_id.external_last_update_start
             schedule.external_last_update_end = schedule.template_id.external_last_update_end
+            schedule.apply_domain_filter = schedule.template_id.apply_domain_filter
+            schedule.domain_filter = schedule.template_id.domain_filter
             schedule.enable_sequence_code_sync = schedule.template_id.enable_sequence_code_sync
             schedule.model = schedule.template_id.model
             schedule.method = schedule.template_id.method
@@ -177,6 +188,8 @@ class ExternalSyncSchedule(models.Model):
             self.enable_sync = self.template_id.enable_sync
             self.external_last_update_start = self.template_id.external_last_update_start
             self.external_last_update_end = self.template_id.external_last_update_end
+            self.apply_domain_filter = self.template_id.apply_domain_filter
+            self.domain_filter = self.template_id.domain_filter
             self.enable_sequence_code_sync = self.template_id.enable_sequence_code_sync
             self.model = self.template_id.model
             self.method = self.template_id.method

@@ -24,6 +24,7 @@
                             <field name="external_id"/>
                             <field name="external_last_update"/>
                             <field name="external_sync_state"/>
+                            <field name="external_sync_info" placeholder="Sync Informations..."/>
                         </group>
                         <group>
                             <field name="id"/>
@@ -49,6 +50,7 @@
                 <field name="external_id"/>
                 <field name="external_last_update"/>
                 <field name="external_sync_state"/>
+                <field name="external_sync_info"/>
                 <field name="id"/>
             </tree>
         </field>
@@ -66,6 +68,7 @@
                 <field name="reference"/>
                 <field name="reference_name"/>
                 <field name="external_sync_state"/>
+                <field name="external_sync_info"/>
                 <field name="id"/>
                 <group name="group_by" expand="0" string="Group By...">
                     <filter name="filter_external_host_id" string="External Host" domain="[]" context="{'group_by':'external_host_id'}"/>
@@ -74,6 +77,7 @@
                     <filter name="filter_reference" string="Reference" domain="[]" context="{'group_by':'reference'}"/>
                     <filter name="filter_reference_name" string="Reference Name" domain="[]" context="{'group_by':'reference_name'}"/>
                     <filter name="filter_external_sync_state" string="External Synchronization State" context="{'group_by': 'external_sync_state'}"/>
+                    <filter name="filter_external_sync_info" string="Sync Informations" context="{'group_by': 'external_sync_info'}"/>
                 </group>
             </search>
         </field>

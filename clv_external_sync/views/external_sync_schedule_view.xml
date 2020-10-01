@@ -35,6 +35,8 @@
                             <field name="enable_sync"/>
                             <field name="external_last_update_start"/>
                             <field name="external_last_update_end"/>
+                            <field name="apply_domain_filter"/>
+                            <field name="domain_filter" placeholder="Domain Filter..." attrs="{'invisible':[('apply_domain_filter', '=', False)]}"/>
                             <field name="enable_sequence_code_sync"/>
                             <field name="date_inclusion"/>
                         </group>

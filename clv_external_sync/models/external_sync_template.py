@@ -53,6 +53,15 @@ class ExternalSyncTemplate(models.Model):
         string="Last Update (End)"
     )
 
+    apply_domain_filter = fields.Boolean(string='Apply Domain Filter', default=False)
+
+    domain_filter = fields.Text(
+        string='Domain Filter',
+        required=False,
+        help="Domain Filter",
+        default='[]'
+    )
+
     enable_sequence_code_sync = fields.Boolean(
         string='Enable Sequence Code Sync'
     )
