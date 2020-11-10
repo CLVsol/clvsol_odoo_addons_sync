@@ -957,7 +957,10 @@ class AbstractExternalSync(models.AbstractModel):
 
                 if local_field_ttype in ['char', 'date', 'datetime', 'text', 'html', 'integer', 'float',
                                          'boolean', 'selection']:
-                    local_values[local_object_fields[i]] = external_object[external_object_fields[i]]
+                    if external_object[external_object_fields[i]] == '':
+                        local_values[local_object_fields[i]] = False
+                    else:
+                        local_values[local_object_fields[i]] = external_object[external_object_fields[i]]
 
                 elif local_field_ttype == 'binary':
                     if external_object[external_object_fields[i]] is not False:
